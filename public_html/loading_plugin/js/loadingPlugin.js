@@ -10,21 +10,15 @@ $.fn.loadingState = function (arg1) {
         if ($.type($element.data("loading-state")) !== "undefined") {
             return;
         }
-
+        
         var settings = $.extend({
-            "text": "Loading...",
+            "min-height": "50px",
+            "html": "Loading...",
             "background-color": "gray",
             "opacity": 0.5
         }, arg1);
-
-        $element.css("position", "relative");
-
-        var $wrapper = $("<div>").appendTo($element);
-        var $background = $("<div>").appendTo($wrapper);
-        var $container = $("<div>", {html: settings.text}).appendTo($wrapper);
-
-
-        $wrapper.css({
+        
+        var defaultSet = {
             "display": "flex",
             "justify-content": "center",
             "align-items": "center",
@@ -33,8 +27,29 @@ $.fn.loadingState = function (arg1) {
             "left": 0,
             "width": $element.width() + "px",
             "height": $element.height() + "px",
+            "min-height": settings["min-height"],
             "border-radius": $element.css("border-radius")
-        });
+        };    
+        
+        if ($element.is("body")) {
+            $.extend(defaultSet, {
+                "position": "fixed",
+                "width": "100%",
+                "height": "100%",
+                "margin": 0,
+                "padding": 0
+            });
+        }
+
+        $element.css("position", "relative");
+
+        var $wrapper = $("<div>").appendTo($element);
+        var $background = $("<div>").appendTo($wrapper);
+        var $container = $("<div>", {
+            html: settings.html
+        }).appendTo($wrapper);
+
+        $wrapper.css(defaultSet);
 
         $background.css({
             "width": "100%",
@@ -55,7 +70,8 @@ $.fn.loadingState = function (arg1) {
 
         var loadingState = {
             "wrapper": $wrapper,
-            "container": $container
+            "container": $container,
+            "background": $background
         };
 
         $element.bind("resize-loading", function () {

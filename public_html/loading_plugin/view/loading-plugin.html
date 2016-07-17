@@ -12,8 +12,10 @@ and open the template in the editor.
         
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
         <script src="../js/loadingPlugin.js"></script>
+        <script src="../js/loadingTest.js"></script>
         
         <link rel="stylesheet" href="../css/loadingStyle.css"/>
+        <link rel="stylesheet" href="../css/loadingAnimations.css"/>
         
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
@@ -33,6 +35,20 @@ and open the template in the editor.
     <body>
         <div class="container" style="margin-top: 100px;">
             <div id="div"></div>
+            
+            <div class="row" style="margin-top: 2rem;">
+                <div class="col-xs-6">
+                    <button class="btn btn-primary btn-block" id="btnLoad">Load</button>
+                </div>
+                <div class="col-xs-6">
+                    <button class="btn btn-default btn-block" id="btnUnload">Unload</button>
+                </div>
+                <div class="col-xs-6 col-xs-offset-3" style="margin-top: 2rem;">
+                    <button class="btn btn-warning btn-block" id="btnLoadOnBody">Load body</button>
+                </div>
+            </div>
         </div>
+        
+        
     </body>
 </html>
