@@ -16,37 +16,40 @@
             $(document).ready(function () {
                 
                 $("#btnPrint").click(function () {
-                    var elementsToPrint = $.makeArray($("#target").children().clone());
-
-                    var pages = [];
-                    var auxDiv = $("<div>").appendTo($("body"));
-                    elementsToPrint.forEach(function (value, index) {
-                        var element = $(value);
-                        auxDiv.append(element);
-                        var auxDivH = auxDiv.height();
-                        if (auxDivH > pageHeight) {
-                            pages.push(auxDiv.children().not(element));
-                            auxDiv.empty();
-                            auxDiv.append(element);
-                        } 
-
-                        if (elementsToPrint.length - 1 === index && auxDiv.length > 0) {
-                            pages.push(auxDiv.children());
-                        }
-                    });
-                    auxDiv.remove();
-
-                    createCanvases(pages, function (imgs) {
-                        var doc = new jsPDF("p", "pt", "a4");
-                        imgs.forEach(function (value, index) {
-                            var imgData = value.toDataURL("image/jpeg", 1);
-                            doc.addImage(imgData, "jpeg", 30, 30);
-                            if (index !== imgs.length - 1) {
-                                doc.addPage();
-                            }
-                        });
-                        doc.output("test.pdf");
-                    }, []);
+                    new PDFFabric({
+                        target: $("#target")
+                    }).createPDF();
+//                    var elementsToPrint = $.makeArray($("#target").children().clone());
+//
+//                    var pages = [];
+//                    var auxDiv = $("<div>").appendTo($("body"));
+//                    elementsToPrint.forEach(function (value, index) {
+//                        var element = $(value);
+//                        auxDiv.append(element);
+//                        var auxDivH = auxDiv.height();
+//                        if (auxDivH > pageHeight) {
+//                            pages.push(auxDiv.children().not(element));
+//                            auxDiv.empty();
+//                            auxDiv.append(element);
+//                        } 
+//
+//                        if (elementsToPrint.length - 1 === index && auxDiv.length > 0) {
+//                            pages.push(auxDiv.children());
+//                        }
+//                    });
+//                    auxDiv.remove();
+//
+//                    createCanvases(pages, function (imgs) {
+//                        var doc = new jsPDF("p", "pt", "a4");
+//                        imgs.forEach(function (value, index) {
+//                            var imgData = value.toDataURL("image/jpeg", 1);
+//                            doc.addImage(imgData, "jpeg", 30, 30);
+//                            if (index !== imgs.length - 1) {
+//                                doc.addPage();
+//                            }
+//                        });
+//                        doc.output("test.pdf");
+//                    }, []);
                 });
                 
                 
