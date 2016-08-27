@@ -9,333 +9,109 @@
         <script src="/MyPlugins/htmlToCanvas/jquery/jquery.js"></script>
         <script src="/MyPlugins/htmlToCanvas/html2canvas/html2canvas.js"></script>
         <script src="/MyPlugins/htmlToCanvas/jspdf/jspdf.min.js"></script>
-        <script src="../myScript/htmlToCanvas_0.1.js"></script>
+        <script src="../myScript/PDFFabric.js"></script>
         <script>
             var pageWidth = 710;
             var pageHeight = 950;
             $(document).ready(function () {
-                
+
                 $("#btnPrint").click(function () {
                     new PDFFabric({
-                        target: $("#target")
+                        target: $("#target"),
+                        returnType: "base64",
+                        onSuccess: function (pdf) {
+                            window.open(pdf);
+                        }
                     }).createPDF();
-//                    var elementsToPrint = $.makeArray($("#target").children().clone());
-//
-//                    var pages = [];
-//                    var auxDiv = $("<div>").appendTo($("body"));
-//                    elementsToPrint.forEach(function (value, index) {
-//                        var element = $(value);
-//                        auxDiv.append(element);
-//                        var auxDivH = auxDiv.height();
-//                        if (auxDivH > pageHeight) {
-//                            pages.push(auxDiv.children().not(element));
-//                            auxDiv.empty();
-//                            auxDiv.append(element);
-//                        } 
-//
-//                        if (elementsToPrint.length - 1 === index && auxDiv.length > 0) {
-//                            pages.push(auxDiv.children());
-//                        }
-//                    });
-//                    auxDiv.remove();
-//
-//                    createCanvases(pages, function (imgs) {
-//                        var doc = new jsPDF("p", "pt", "a4");
-//                        imgs.forEach(function (value, index) {
-//                            var imgData = value.toDataURL("image/jpeg", 1);
-//                            doc.addImage(imgData, "jpeg", 30, 30);
-//                            if (index !== imgs.length - 1) {
-//                                doc.addPage();
-//                            }
-//                        });
-//                        doc.output("test.pdf");
-//                    }, []);
                 });
-                
-                
-            });
-            
-            function createCanvases(pages, whenOver, imgs) {
-                imgs = typeof(imgs) === "undefined" ? [] : imgs;
-                
-                if (pages.length === 0) {
-                    whenOver(imgs);
-                    return;
-                }
 
-                var $div = $("<div>", {
-                    css: {
-                        "background-color": "white",
-                        "width": pageWidth
-                    }
-                }).appendTo("body").append(pages[0]);
-                
-                html2canvas($div).then(function (canvas) {
-                    imgs.push(canvas);
-                    pages = pages.slice(1);
-                    createCanvases(pages, whenOver, imgs);
-                    $div.remove();
-                });
-            }
+
+            });
         </script>
     </head>
     <body>
         <div class="container"><button id="btnPrint" class="btn btn-primary">Print</button></div>
-        
+
         <div class="container-fluid" id="target">
-            <nav class="navbar navbar-inverse">
-                <div class="container-fluid">
-                    <div class="navbar-header">
-                        <a class="navbar-brand" href="#">WebSiteName</a>
-                    </div>
-                    <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Home</a></li>
-                        <li><a href="#">Page 1</a></li>
-                        <li><a href="#">Page 2</a></li> 
-                        <li><a href="#">Page 3</a></li> 
-                    </ul>
+
+            <h2>Basic Table</h2>
+            <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th><label>Firstname</label></th>
+                        <th><label>Lastname</label></th>
+                        <th>Email</th>
+                        <th colspan="2">Colspan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>John</td>
+                        <td>Doe</td>
+                        <td>john@example.com</td>
+                        <td>john@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>Mary</td>
+                        <td>Moe</td>
+                        <td>mary@example.com</td>
+                        <td>mary@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>July</td>
+                        <td>Dooley</td>
+                        <td>july@example.com</td>
+                        <td>july@example.com</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div style="border: 1px solid goldenrod;">
+
+                <div style="margin: 10px; border: 1px solid red; height: 500px;"></div>
+                <div style="margin: 10px; border: 1px solid yellow; height: 200px;"></div>
+                <div style="margin: 10px; border: 1px solid black; height: 100px;"></div>
+                <div style="margin: 10px; border: 1px solid green;">
+                    <div style="margin: 10px; border: 1px solid black;">
+                        <h2>Basic Table</h2>
+                        <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th><label>Firstname</label></th>
+                                    <th><label>Lastname</label></th>
+                                    <th>Email</th>
+                                    <th colspan="2">Colspan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>John</td>
+                                    <td>Doe</td>
+                                    <td>john@example.com</td>
+                                    <td>john@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>Mary</td>
+                                    <td>Moe</td>
+                                    <td>mary@example.com</td>
+                                    <td>mary@example.com</td>
+                                </tr>
+                                <tr>
+                                    <td>July</td>
+                                    <td>Dooley</td>
+                                    <td>july@example.com</td>
+                                    <td>july@example.com</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>   
+                    <div style="margin: 10px; border: 1px solid black; height: 500px;"></div>   
                 </div>
-            </nav>
-            <div class="well">Hello1</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello2</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello3</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello4</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello5</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello6</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello7</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello8</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello9</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello10</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello11</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello12</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello13</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello14</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello15</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
-            <div class="well">Hello16</div>
-            <table class="table">
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Nat</td>
-                </tr>
-                <tr>
-                    <td>Hola</td>
-                    <td>Yuna</td>
-                </tr>
-            </table>
+
+            </div>
+
         </div>
     </body>
 </html>
