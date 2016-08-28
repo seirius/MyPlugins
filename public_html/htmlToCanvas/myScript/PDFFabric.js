@@ -35,7 +35,8 @@ PDFFabric.prototype = {
     
     static: {
         RETURN_BASE64: "base64",
-        RETURN_SAVE: "save"
+        RETURN_SAVE: "save",
+        ATTR_NAME_PAG: "data-child-element-pagination"
     },
     
     getReturn: function () {
@@ -54,7 +55,7 @@ PDFFabric.prototype = {
     
     createCanvases: function (pages, whenOver, imgs) {
         var fabric = this;
-        imgs = typeof(imgs) === "undefined" ? [] : imgs;
+        imgs = $.type(imgs) === "undefined" ? [] : imgs;
 
         if (pages.length === 0) {
             whenOver(imgs);
@@ -136,6 +137,7 @@ PDFFabric.prototype = {
         var fabric = this;
         var temporalDiv = fabric.private.temporalDiv;
         var paginationCount = fabric.private.childPaginationCounter;
+        var attrName = fabric.static.ATTR_NAME_PAG;
         fabric.private.childPaginationCounter++;
         
         element.remove();
@@ -152,7 +154,7 @@ PDFFabric.prototype = {
         do {
             result = fabric.getFirstElementCustom(elements);
             elementChild = result.element;
-            elementChild.attr("data-child-element-pagination", paginationCount);
+            elementChild.attr(attrName, paginationCount);
             elements = result.elements;
             
             temporalDiv.append(elementChild);
@@ -170,8 +172,8 @@ PDFFabric.prototype = {
                 var divHeight = temporalDiv.height();
 
                 if (divHeight > fabric.pageHeight) {
-                    var auxContainerPagination = temporalDiv.children("[data-child-element-pagination=" + paginationCount + "]");
-                    var auxContainerBefore = temporalDiv.children().not("[data-child-element-pagination=" + paginationCount + "]");
+                    var auxContainerPagination = temporalDiv.children("[" + attrName + "=" + paginationCount + "]");
+                    var auxContainerBefore = temporalDiv.children().not("[" + attrName + "=" + paginationCount + "]");
                     temporalDiv.empty();
                     var elementClone = element.clone().append(auxContainerPagination);
                     elementClone.css("height", "auto");
