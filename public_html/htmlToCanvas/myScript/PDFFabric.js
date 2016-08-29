@@ -6,8 +6,17 @@
 
 function PDFFabric (args) {
     
+    //Importar las librerias necesarias para el uso de esta clase,
+    //en caso de que ya esten importadas no lo vuelve a hacer.
+//    if ($("#pdfFabric_libs").length === 0) {
+//        $("head").append($("<script>", {
+//            id: "pdfFabric_libs",
+//            src: "lib/html2pdf/html2pdf.js"
+//        }));
+//    }
+    
     this.pageWidth = 710;
-    this.pageHeight = 950;
+    this.pageHeight = 980;
     this.target = $();
     this.pdfName = "pdf_file.pdf";
     this.returnType = this.static.RETURN_SAVE;
@@ -19,8 +28,10 @@ function PDFFabric (args) {
         elementsO: [],
         elementsN: [],
         pages: [],
+        imgs: [],
         temporalDiv: $(),
-        childPaginationCounter: 0
+        childPaginationCounter: 0,
+        recursionCounter: 0
     },
     
     this.onSuccess = function () {};
@@ -53,28 +64,29 @@ PDFFabric.prototype = {
         }
     },
     
-    createCanvases: function (pages, whenOver, imgs) {
+    createCanvases: function (whenOver) {
         var fabric = this;
-        imgs = $.type(imgs) === "undefined" ? [] : imgs;
-
-        if (pages.length === 0) {
+        var pages = fabric.private.pages;
+        var imgs = fabric.private.imgs;
+        
+        if (fabric.private.recursionCounter === pages.length) {
             whenOver(imgs);
+            fabric.private.recursionCounter = 0;
             return;
         }
-
+        
         var $div = $("<div>").appendTo("body");
         var $div2 = $("<div>",{
             css: {
                 "background-color": "white",
                 "width": fabric.pageWidth
             }
-        }).appendTo($div).append(pages[0]);
+        }).appendTo($div).append(pages[fabric.private.recursionCounter]);
 
         html2canvas($div2).then(function (canvas) {
-            imgs.push(canvas);
-            pages = pages.slice(1);
-            fabric.createCanvases(pages, whenOver, imgs);
             $div.remove();
+            imgs.push(canvas);
+            fabric.createCanvases(whenOver);
         });
         
         $div.css({
@@ -84,11 +96,17 @@ PDFFabric.prototype = {
             left: 0,
             "z-index": -1
         });
+        
+        fabric.private.recursionCounter++;
     },
 
     createPDF: function () {
         var fabric = this;
-        var temporalDiv = fabric.private.temporalDiv = $("<div>").appendTo($("body"));
+        var temporalDiv = fabric.private.temporalDiv = $("<div>", {
+            css: {
+                visibility: "hidden"
+            }
+        }).appendTo($("body"));
         var element, divHeight, elementHeight;
         do {
             element = fabric.getFirstElement();
@@ -119,7 +137,7 @@ PDFFabric.prototype = {
         
         temporalDiv.remove();
         
-        fabric.createCanvases(fabric.private.pages, function (imgs) {
+        fabric.createCanvases(function (imgs) {
             fabric.private.pdf = new jsPDF("p", "pt", "a4");
             imgs.forEach(function (value, index) {
                 var imgData = value.toDataURL("image/jpeg", 1);
@@ -130,7 +148,7 @@ PDFFabric.prototype = {
             });
             
             fabric.onSuccess(fabric.getReturn());
-        }, []);
+        });
     },
     
     childsPagination: function (element) {
@@ -266,5 +284,4 @@ PDFFabric.prototype = {
     }
 
 };
-
 
