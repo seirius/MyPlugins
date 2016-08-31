@@ -17,126 +17,144 @@
 
                 $("#btnPrint").click(function () {
                     new PDFFabric({
-                        target: $("#target"),
+                        target: ["#target", "#target2"],
                         returnType: "base64",
                         onSuccess: function (pdf) {
                             window.open(pdf);
                         }
+                    }).setBackgroundStyle({
+                        "background-color": "#FFE0AA"
                     }).createPDF();
                 });
 
-
             });
         </script>
+        <style>
+        </style>
     </head>
     <body>
         <div class="container"><button id="btnPrint" class="btn btn-primary">Print</button></div>
 
-        <div class="container-fluid" id="target">
+        <div class="container-fluid">
+            <div id="target" style="width: 50%; float:left;">
+                <h2>Basic Table</h2>
+                <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th><label>Firstname</label></th>
+                            <th><label>Lastname</label></th>
+                            <th>Email</th>
+                            <th colspan="2">Colspan</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>John</td>
+                            <td>Doe</td>
+                            <td>john@example.com</td>
+                            <td>john@example.com</td>
+                        </tr>
+                        <tr>
+                            <td>Mary</td>
+                            <td>Moe</td>
+                            <td>mary@example.com</td>
+                            <td>mary@example.com</td>
+                        </tr>
+                        <tr>
+                            <td>July</td>
+                            <td>Dooley</td>
+                            <td>july@example.com</td>
+                            <td>july@example.com</td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <h2>Basic Table</h2>
-            <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th><label>Firstname</label></th>
-                        <th><label>Lastname</label></th>
-                        <th>Email</th>
-                        <th colspan="2">Colspan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                        <td>mary@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                        <td>july@example.com</td>
-                    </tr>
-                </tbody>
-            </table>
+                <div style="border: 1px solid goldenrod;">
 
-            <div style="border: 1px solid goldenrod;">
-
-                <div style="margin: 10px; border: 1px solid red; height: 500px;">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, nisi, quam et quia eveniet inventore harum illum itaque quo natus hic cum vero obcaecati earum omnis facilis quidem! Dicta, soluta.</p>
-                    <p>Magnam, expedita ratione eius explicabo sit iusto tenetur labore eaque aliquam libero nisi consectetur ad quaerat iste aut. Tempore, eaque temporibus quidem atque fugiat reiciendis velit quo iure error quam.</p>
-                    <p>Iure, magnam, esse quam labore id quaerat nisi provident eaque dolore odit suscipit omnis? Cum, eius, similique, labore, possimus a ut dolorum laborum blanditiis numquam sit facilis ipsum quasi facere.</p>
-                    <p>Harum, sed, non, recusandae optio tempore veniam maxime saepe quae id totam culpa deserunt. Quaerat, praesentium, nemo, ducimus vitae totam dolorem pariatur reiciendis natus cupiditate ad adipisci veritatis in saepe!</p>
-                    <p>Accusantium, architecto, dolore consectetur ratione praesentium illo necessitatibus cum consequuntur deleniti reiciendis dignissimos impedit qui dolorum magnam eum repellat at alias eligendi. Ratione, eos, distinctio praesentium facere fugit consequuntur labore!</p>
-                    <p>Corrupti, facere, nulla assumenda consequatur impedit non rem itaque placeat necessitatibus expedita ipsum perferendis! Culpa, fuga facilis saepe totam commodi sed possimus ad aperiam cumque quia inventore dolore ex modi.</p>
-                    <p>Impedit, omnis, accusamus, aspernatur distinctio est fuga vero voluptatem amet recusandae ut nihil nobis quod fugit. Error, magni, ea nam est aliquid inventore illum nostrum et reiciendis qui blanditiis perspiciatis!</p>
-                    <p>Incidunt, provident, id, cum, quam voluptas odio doloremque iure minima repellat iusto dolores dolor voluptatem vel reiciendis facere debitis nemo. Nemo, eligendi eos numquam vel maxime ea optio voluptatum error.</p>
-                </div>
-                <div style="margin: 10px; border: 1px solid yellow; height: 900px;">
-                    <label for="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, porro, cupiditate possimus eius repellat quisquam error architecto at ducimus recusandae. Beatae consequatur voluptas animi perferendis enim laudantium quia. Laborum, assumenda.</label>
-                    <label for="">Nisi, mollitia, non, provident totam error minus commodi ullam dolorem sunt tempora magnam dolore quae officia eveniet quis tenetur velit temporibus itaque veniam earum deserunt ipsum excepturi laborum cumque ipsam!</label>
-                    <label for="">Eaque, expedita, voluptatibus molestias facilis dignissimos quaerat nemo ipsa sunt animi rem similique cum omnis facere nostrum ad earum maxime iste aut minus inventore sit repellendus architecto repudiandae ullam dolorum!</label>
-                    <label for="">Nulla, perferendis, eos, dicta, tenetur ea facere consequuntur quia saepe totam qui quidem in vero ipsam animi iusto enim odit reiciendis mollitia earum incidunt eaque nam officia labore omnis ex!</label>
-                    <label for="">Qui, porro, reprehenderit, aliquam nulla necessitatibus tempora delectus totam maxime fugiat ex voluptatibus vero veritatis eaque repellendus id quidem sit earum voluptatum eum dolore. Reiciendis asperiores fugiat beatae inventore eveniet!</label>
-                    <label for="">Id, excepturi, ipsum, exercitationem, at libero eos atque eveniet ad voluptate adipisci ipsam quasi magni odio asperiores animi repellat possimus sed iste quis quaerat pariatur eligendi laboriosam. Corrupti, dicta, assumenda.</label>
-                    <input type="checkbox" name="" id="">
-                </div>
-                <div style="margin: 10px; border: 1px solid black; height: 100px;">
-                    <label for="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, eum, soluta suscipit sit veniam atque quas eaque asperiores quidem maxime omnis dignissimos explicabo temporibus assumenda numquam magnam ut. Doloremque, laudantium.</label>
-                </div>
-                <div style="margin: 10px; border: 1px solid green;">
-                    <div style="margin: 10px; border: 1px solid black;">
-                        <h2>Basic Table</h2>
-                        <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th><label>Firstname</label></th>
-                                    <th><label>Lastname</label></th>
-                                    <th>Email</th>
-                                    <th colspan="2">Colspan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>John</td>
-                                    <td>Doe</td>
-                                    <td>john@example.com</td>
-                                    <td>john@example.com</td>
-                                </tr>
-                                <tr>
-                                    <td>Mary</td>
-                                    <td>Moe</td>
-                                    <td>mary@example.com</td>
-                                    <td>mary@example.com</td>
-                                </tr>
-                                <tr>
-                                    <td>July</td>
-                                    <td>Dooley</td>
-                                    <td>july@example.com</td>
-                                    <td>july@example.com</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div style="margin: 10px; border: 1px solid red; height: 500px;">
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus, nisi, quam et quia eveniet inventore harum illum itaque quo natus hic cum vero obcaecati earum omnis facilis quidem! Dicta, soluta.</p>
+                        <p>Magnam, expedita ratione eius explicabo sit iusto tenetur labore eaque aliquam libero nisi consectetur ad quaerat iste aut. Tempore, eaque temporibus quidem atque fugiat reiciendis velit quo iure error quam.</p>
+                        <p>Iure, magnam, esse quam labore id quaerat nisi provident eaque dolore odit suscipit omnis? Cum, eius, similique, labore, possimus a ut dolorum laborum blanditiis numquam sit facilis ipsum quasi facere.</p>
+                        <p>Harum, sed, non, recusandae optio tempore veniam maxime saepe quae id totam culpa deserunt. Quaerat, praesentium, nemo, ducimus vitae totam dolorem pariatur reiciendis natus cupiditate ad adipisci veritatis in saepe!</p>
+                        <p>Accusantium, architecto, dolore consectetur ratione praesentium illo necessitatibus cum consequuntur deleniti reiciendis dignissimos impedit qui dolorum magnam eum repellat at alias eligendi. Ratione, eos, distinctio praesentium facere fugit consequuntur labore!</p>
+                        <p>Corrupti, facere, nulla assumenda consequatur impedit non rem itaque placeat necessitatibus expedita ipsum perferendis! Culpa, fuga facilis saepe totam commodi sed possimus ad aperiam cumque quia inventore dolore ex modi.</p>
+                        <p>Impedit, omnis, accusamus, aspernatur distinctio est fuga vero voluptatem amet recusandae ut nihil nobis quod fugit. Error, magni, ea nam est aliquid inventore illum nostrum et reiciendis qui blanditiis perspiciatis!</p>
+                        <p>Incidunt, provident, id, cum, quam voluptas odio doloremque iure minima repellat iusto dolores dolor voluptatem vel reiciendis facere debitis nemo. Nemo, eligendi eos numquam vel maxime ea optio voluptatum error.</p>
+                    </div>
+                    <div style="margin: 10px; border: 1px solid yellow; height: 900px;">
+                        <label for="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis, porro, cupiditate possimus eius repellat quisquam error architecto at ducimus recusandae. Beatae consequatur voluptas animi perferendis enim laudantium quia. Laborum, assumenda.</label>
+                        <label for="">Nisi, mollitia, non, provident totam error minus commodi ullam dolorem sunt tempora magnam dolore quae officia eveniet quis tenetur velit temporibus itaque veniam earum deserunt ipsum excepturi laborum cumque ipsam!</label>
+                        <label for="">Eaque, expedita, voluptatibus molestias facilis dignissimos quaerat nemo ipsa sunt animi rem similique cum omnis facere nostrum ad earum maxime iste aut minus inventore sit repellendus architecto repudiandae ullam dolorum!</label>
+                        <label for="">Nulla, perferendis, eos, dicta, tenetur ea facere consequuntur quia saepe totam qui quidem in vero ipsam animi iusto enim odit reiciendis mollitia earum incidunt eaque nam officia labore omnis ex!</label>
+                        <label for="">Qui, porro, reprehenderit, aliquam nulla necessitatibus tempora delectus totam maxime fugiat ex voluptatibus vero veritatis eaque repellendus id quidem sit earum voluptatum eum dolore. Reiciendis asperiores fugiat beatae inventore eveniet!</label>
+                        <label for="">Id, excepturi, ipsum, exercitationem, at libero eos atque eveniet ad voluptate adipisci ipsam quasi magni odio asperiores animi repellat possimus sed iste quis quaerat pariatur eligendi laboriosam. Corrupti, dicta, assumenda.</label>
+                        <input type="checkbox" name="" id="">
+                    </div>
+                    <div style="margin: 10px; border: 1px solid black; height: 100px;">
+                        <label for="">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nulla, eum, soluta suscipit sit veniam atque quas eaque asperiores quidem maxime omnis dignissimos explicabo temporibus assumenda numquam magnam ut. Doloremque, laudantium.</label>
+                    </div>
+                    <div style="margin: 10px; border: 1px solid green;">
+                        <div style="margin: 10px; border: 1px solid black;">
+                            <h2>Basic Table</h2>
+                            <p>The .table class adds basic styling (light padding and only horizontal dividers) to a table:</p>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th><label>Firstname</label></th>
+                                        <th><label>Lastname</label></th>
+                                        <th>Email</th>
+                                        <th colspan="2">Colspan</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>John</td>
+                                        <td>Doe</td>
+                                        <td>john@example.com</td>
+                                        <td>john@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mary</td>
+                                        <td>Moe</td>
+                                        <td>mary@example.com</td>
+                                        <td>mary@example.com</td>
+                                    </tr>
+                                    <tr>
+                                        <td>July</td>
+                                        <td>Dooley</td>
+                                        <td>july@example.com</td>
+                                        <td>july@example.com</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>   
+                        <div style="margin: 10px; border: 1px solid black; height: 500px;">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident, adipisci, officia, amet fuga optio perspiciatis molestias cum odit eum aspernatur neque est voluptatibus libero beatae debitis consequuntur in rerum omnis?</p>
+                            <p>Rerum, dolore minima tempore debitis consectetur aliquid eum sed et rem culpa incidunt sit corporis deserunt voluptatem ducimus nostrum voluptates nesciunt consequatur laudantium laborum. Reprehenderit, deserunt quia harum ipsum odit.</p>
+                            <p>Quia, dolorem, odit mollitia soluta sunt earum corporis adipisci. Ut, vitae, et, cupiditate sed cum iusto nesciunt quibusdam voluptatem commodi quidem molestias ipsam dolorum laboriosam non iure expedita nemo eum!</p>
+                            <p>Quisquam, eligendi est corporis saepe quae numquam maiores excepturi laborum facere officiis minima ipsum repudiandae non. Voluptas, fugit autem recusandae amet nemo eveniet ipsam! Repellat, illo harum iure minus sed.</p>
+                            <p>Odit, accusantium rem laborum eligendi aut aliquid voluptates qui dolor debitis autem. Quam, quis enim perferendis est vel odit nisi ratione iusto. Deserunt, mollitia repellendus tempora sint ipsam consequuntur totam!</p>
+                        </div>   
+                    </div>
+                    <div class="lastOfMany" style="margin: 10px; border: 1px solid black; height: 300px;">
                     </div>   
-                    <div style="margin: 10px; border: 1px solid black; height: 500px;">
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Provident, adipisci, officia, amet fuga optio perspiciatis molestias cum odit eum aspernatur neque est voluptatibus libero beatae debitis consequuntur in rerum omnis?</p>
-                        <p>Rerum, dolore minima tempore debitis consectetur aliquid eum sed et rem culpa incidunt sit corporis deserunt voluptatem ducimus nostrum voluptates nesciunt consequatur laudantium laborum. Reprehenderit, deserunt quia harum ipsum odit.</p>
-                        <p>Quia, dolorem, odit mollitia soluta sunt earum corporis adipisci. Ut, vitae, et, cupiditate sed cum iusto nesciunt quibusdam voluptatem commodi quidem molestias ipsam dolorum laboriosam non iure expedita nemo eum!</p>
-                        <p>Quisquam, eligendi est corporis saepe quae numquam maiores excepturi laborum facere officiis minima ipsum repudiandae non. Voluptas, fugit autem recusandae amet nemo eveniet ipsam! Repellat, illo harum iure minus sed.</p>
-                        <p>Odit, accusantium rem laborum eligendi aut aliquid voluptates qui dolor debitis autem. Quam, quis enim perferendis est vel odit nisi ratione iusto. Deserunt, mollitia repellendus tempora sint ipsam consequuntur totam!</p>
-                    </div>   
+
+                </div>
+
+                <div class="last" style="margin: 10px; border: 1px solid black; height: 300px;">
                 </div>
 
             </div>
-
+            
+            <div id="target2" style="width:50%; float:right;">
+                <div class="last" style="margin: 10px; border: 1px solid black; height: 300px;">
+                </div>
+                <div class="last" style="margin: 10px; border: 1px solid black; height: 300px;">
+                </div>
+                <div class="last" style="margin: 10px; border: 1px solid black; height: 300px;">
+                </div>
+            </div>
         </div>
     </body>
 </html>

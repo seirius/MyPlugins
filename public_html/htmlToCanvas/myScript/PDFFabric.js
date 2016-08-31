@@ -14,16 +14,20 @@ function PDFFabric (args) {
 //            src: "lib/html2pdf/html2pdf.js"
 //        }));
 //    }
+    var fabric = this;
     
-    this.pageWidth = 710;
-    this.pageHeight = 980;
-    this.target = $();
-    this.pdfName = "pdf_file.pdf";
-    this.returnType = this.static.RETURN_SAVE;
+    fabric.pageWidth = 710;
+    fabric.pageHeight = 930;
+    fabric.target = $();
+    fabric.pdfName = "pdf_file.pdf";
+    fabric.returnType = fabric.static.RETURN_SAVE;
+    fabric.pdfBackgroundStyle = {
+        "background-color": "white",
+        "width": fabric.pageWidth,
+        "font-family": "\"Times New Roman\", Times, serif"
+    };
     
     this.private = {
-        RETURN_BASE64: "base64",
-        RETURN_SAVE: "save",
         pdf: {},
         elementsO: [],
         elementsN: [],
@@ -34,11 +38,16 @@ function PDFFabric (args) {
         recursionCounter: 0
     },
     
-    this.onSuccess = function () {};
+    fabric.onSuccess = function () {};
+    $.extend(fabric, args);
     
-    $.extend(this, args);
-    
-    this.private.elementsO = $.makeArray(this.target.clone().children());
+    if ($.type(fabric.target) === "array") {
+        fabric.target.forEach(function (value) {
+            fabric.private.elementsO = fabric.private.elementsO.concat($.makeArray($(value).clone().children()));
+        });
+    } else {
+        fabric.private.elementsO = $.makeArray(fabric.target.clone().children());
+    }
     
 }
 
@@ -77,10 +86,7 @@ PDFFabric.prototype = {
         
         var $div = $("<div>").appendTo("body");
         var $div2 = $("<div>",{
-            css: {
-                "background-color": "white",
-                "width": fabric.pageWidth
-            }
+            css: fabric.pdfBackgroundStyle
         }).appendTo($div).append(pages[fabric.private.recursionCounter]);
 
         html2canvas($div2).then(function (canvas) {
@@ -206,7 +212,6 @@ PDFFabric.prototype = {
                     var elementClone = element.clone().append(auxContainer);
                     elementClone.css("height", "auto");
                     temporalDiv.append(elementClone);
-                    fabric.addPage();
                 }
             }
             
@@ -233,12 +238,10 @@ PDFFabric.prototype = {
     
     addPageWithElement: function (element) {
         var fabric = this;
-        var temporalDiv = fabric.private.temporalDiv;
-        if (!fabric.isTemporalDivEmpty()) {
+        if (!fabric.isTemporalDivEmptyWithoutElement(element)) {
             fabric.addPageWithoutElement(element);
             fabric.addPage();
         } else {
-            temporalDiv.append(element);
             fabric.addPage();
         }
     },
@@ -281,7 +284,18 @@ PDFFabric.prototype = {
         var fabric = this;
         var temporalDiv = fabric.private.temporalDiv;
         return temporalDiv.length === 0;
+    },
+    
+    isTemporalDivEmptyWithoutElement: function (element) {
+        var fabric = this;
+        var temporalDiv = fabric.private.temporalDiv;
+        return temporalDiv.not(element).length === 0;
+    },
+    
+    setBackgroundStyle: function (args) {
+        var fabric = this;
+        $.extend(fabric.pdfBackgroundStyle, args);
+        return fabric;
     }
 
 };
-
