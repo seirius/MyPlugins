@@ -122,7 +122,7 @@ PDFFabric.prototype = {
             if (elementHeight > fabric.pageHeight) {
                 
                 if (element.is("table")) {
-                    fabric.addPageWithElement(element);
+                    fabric.childPaginationTable(element);
                 } else {
                     fabric.childsPagination(element);
                 }
@@ -187,7 +187,7 @@ PDFFabric.prototype = {
             if (elementChildHeight > fabric.pageHeight) {
                 
                 if (elementChild.is("table")) {
-                    fabric.addPageWithElement(element.clone().append(elementChild));
+                    fabric.childPaginationTable(elementChild);
                 } else {
                     fabric.childsPagination(elementChild);
                 }
@@ -212,11 +212,76 @@ PDFFabric.prototype = {
                     var elementClone = element.clone().append(auxContainer);
                     elementClone.css("height", "auto");
                     temporalDiv.append(elementClone);
+                    
+                    if (fabric.getElementsOLength() === 0) {
+                        fabric.addPage();
+                    }
                 }
             }
             
         } while(elements.length > 0);
         
+    },
+    
+    childPaginationTable: function(element) {
+        var fabric = this;
+        var temporalDiv = fabric.private.temporalDiv;
+        var paginationCount = fabric.private.childPaginationCounter;
+        var attrName = fabric.static.ATTR_NAME_PAG;
+        fabric.private.childPaginationCounter++;
+        
+        element.remove();
+        var elements = $.makeArray(element.find("tr"));
+        
+        if (elements.length === 0) {
+            fabric.addPageWithElement(element);
+            return;
+        }
+        
+        element.empty();
+        var result, elementChild;
+        
+        do {
+            result = fabric.getFirstElementCustom(elements);
+            elementChild = result.element;
+            elementChild.attr(attrName, paginationCount);
+            elements = result.elements;
+            
+            temporalDiv.append(elementChild);
+            var elementChildHeight = elementChild.height();
+            
+            if (elementChildHeight > fabric.pageHeight) {
+                
+                fabric.childsPagination(elementChild);
+                
+            } else {
+                var divHeight = temporalDiv.height();
+
+                if (divHeight > fabric.pageHeight) {
+                    var auxContainerPagination = temporalDiv.children("[" + attrName + "=" + paginationCount + "]");
+                    var auxContainerBefore = temporalDiv.children().not("[" + attrName + "=" + paginationCount + "]");
+                    temporalDiv.empty();
+                    var elementClone = element.clone().append(auxContainerPagination);
+                    elementClone.css("height", "auto");
+                    temporalDiv.append(auxContainerBefore);
+                    temporalDiv.append(elementClone);
+                    fabric.addPageWithoutElement(elementChild);
+                } 
+                
+                if (elements.length === 0 && !fabric.isTemporalDivEmpty()) {
+                    var auxContainer = temporalDiv.children();
+                    temporalDiv.empty();
+                    var elementClone = element.clone().append(auxContainer);
+                    elementClone.css("height", "auto");
+                    temporalDiv.append(elementClone);
+                    
+                    if (fabric.getElementsOLength() === 0) {
+                        fabric.addPage();
+                    }
+                }
+            }
+            
+        } while(elements.length > 0);
     },
     
     addPage: function () {
